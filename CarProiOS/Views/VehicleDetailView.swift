@@ -120,11 +120,11 @@ struct VehicleDetailView: View {
             // Hotspots
             Group {
                 hotspot
-                    .position(x: UIScreen.main.bounds.width * 0.35, y: 70)
+                    .position(x: UIScreen.main.bounds.width * 0.41, y: 70)
                 hotspot
-                    .position(x: UIScreen.main.bounds.width * 0.85, y: 126)
+                    .position(x: UIScreen.main.bounds.width * 0.71, y: 126)
                 hotspot
-                    .position(x: UIScreen.main.bounds.width * 0.2, y: 154)
+                    .position(x: UIScreen.main.bounds.width * 0.32, y: 154)
             }
         }
     }
