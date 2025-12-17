@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Vehicle: Identifiable, Equatable, Hashable {
+struct Vehicle: Identifiable, Equatable {
     let id: String
     let year: Int
     let make: String

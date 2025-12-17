@@ -12,6 +12,7 @@ struct VehicleDetailView: View {
     
     @State private var selectedTab = "Exterior"
     @State private var isFavorite: Bool
+    @State private var showChat = false
     @Environment(\.dismiss) private var dismiss
     
     private let tabs = ["Exterior", "Interior", "Key features"]
@@ -71,11 +72,43 @@ struct VehicleDetailView: View {
                 Spacer()
                 HStack {
                     Spacer()
-                    ChatButton(action: {})
-                        .padding(.trailing, AppSpacing.xl)
-                        .padding(.bottom, 100)
+                    Button(action: { showChat = true }) {
+                        Image("SebastianIcon")
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .frame(width: 48, height: 48)
+                            .padding(AppSpacing.md)
+                            .background(
+                                LinearGradient(
+                                    colors: [Color(hex: "1A1A2E"), Color(hex: "2D2D44")],
+                                    startPoint: .topLeading,
+                                    endPoint: .bottomTrailing
+                                )
+                            )
+                            .clipShape(Circle())
+                            .overlay(
+                                Circle()
+                                    .stroke(
+                                        LinearGradient(
+                                            colors: [
+                                                Color(hex: "4A90E2").opacity(0.25),
+                                                Color(hex: "E24A8F").opacity(0.25)
+                                            ],
+                                            startPoint: .leading,
+                                            endPoint: .trailing
+                                        ),
+                                        lineWidth: 1
+                                    )
+                            )
+                            .shadow(color: Color.black.opacity(0.15), radius: 10, x: 0, y: 2)
+                    }
+                    .padding(.trailing, AppSpacing.xl)
+                    .padding(.bottom, 100)
                 }
             }
+        }
+        .sheet(isPresented: $showChat) {
+            ChatView()
         }
         .navigationBarTitleDisplayMode(.inline)
         .toolbarBackground(AppColors.blueGradientStart, for: .navigationBar)
@@ -120,7 +153,7 @@ struct VehicleDetailView: View {
             // Hotspots
             Group {
                 hotspot
-                    .position(x: UIScreen.main.bounds.width * 0.41, y: 70)
+                    .position(x: UIScreen.main.bounds.width * 0.41, y: 110)
                 hotspot
                     .position(x: UIScreen.main.bounds.width * 0.71, y: 126)
                 hotspot

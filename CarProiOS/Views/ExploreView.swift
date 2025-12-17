@@ -11,6 +11,7 @@ struct ExploreView: View {
     @State private var searchText = ""
     @State private var vehicles = MockData.vehicles
     @State private var selectedVehicle: Vehicle?
+    @State private var showChat = false
     
     var body: some View {
         NavigationStack {
@@ -35,14 +36,14 @@ struct ExploreView: View {
                 }
                 
                 // Floating Chat Button
-                ChatButton(action: {
-                    // Handle chat action
+                AskSebastianButton(action: {
+                    showChat = true
                 })
                 .padding(.trailing, AppSpacing.xl)
                 .padding(.bottom, AppSpacing.xl)
             }
-            .navigationDestination(for: Vehicle.self) { vehicle in
-                VehicleDetailView(vehicle: vehicle)
+            .sheet(isPresented: $showChat) {
+                ChatView()
             }
         }
     }
@@ -90,7 +91,7 @@ struct ExploreView: View {
             
             VStack(spacing: AppSpacing.lg) {
                 ForEach(Array(vehicles.enumerated()), id: \.element.id) { index, vehicle in
-                    NavigationLink(value: vehicle) {
+                    NavigationLink(destination: VehicleDetailView(vehicle: vehicle)) {
                         VehicleCard(
                             vehicle: vehicle,
                             onFavoriteToggle: {
